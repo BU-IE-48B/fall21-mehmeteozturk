@@ -4,8 +4,8 @@
 
 
 
-[Homework 1.rmd](files/hw1/x1.Rmd)
-[Homework 1.html](files/hw1/x1.html)
+[Homework 1.rmd](x1.Rmd)
+[Homework 1.html](x1.html)
 
 
 
