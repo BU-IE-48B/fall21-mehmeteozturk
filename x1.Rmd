@@ -1,0 +1,392 @@
+---
+title: "48bhw1"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+
+library(readr)
+library(scatterplot3d)
+library(repr)
+library(rgl)
+library(pracma)
+library(reshape2)
+library(data.table)
+library(ggplot2)
+library(TSrepr)
+library(rpart)
+library(zoo)
+library(rattle)
+
+x_acc <- read_table("D:/İndirilenler/uWaveGestureLibrary_X_TRAIN",col_names = FALSE)
+y_acc <- read_table("D:/İndirilenler/uWaveGestureLibrary_Y_TRAIN",col_names = FALSE)
+z_acc <- read_table("D:/İndirilenler/uWaveGestureLibrary_Z_TRAIN",col_names = FALSE)
+
+x_move=as.vector(x_acc[92,])
+z_move=as.vector(z_acc[92,])
+y_move=as.vector(y_acc[92,])
+
+total <- rbind(x_move,y_move,z_move)
+total=t(total)
+total=total[-1,]
+total=as.data.frame(total)
+names(total)=c('x_acc','y_acc','z_acc')
+
+
+
+
+acceleration=as.ts(total)
+
+
+
+
+velocity_x=cumsum(total$x_acc)
+velocity_y=cumsum(total$y_acc)
+velocity_z=cumsum(total$z_acc)
+
+velocity=data.frame(velocity_x,velocity_y,velocity_z)
+tsvelocity=as.ts(velocity)
+
+
+location_x=cumsum(velocity_x)
+location_y=cumsum(velocity_y)
+location_z=cumsum(velocity_z)
+location=data.frame(location_x,location_y,location_z)
+tslocation=as.ts(location)
+
+location8=location
+
+x_move=as.vector(x_acc[128,])
+z_move=as.vector(z_acc[128,])
+y_move=as.vector(y_acc[128,])
+
+
+total <- rbind(x_move,y_move,z_move)
+total=t(total)
+total=total[-1,]
+total=as.data.frame(total)
+names(total)=c('x_acc','y_acc','z_acc')
+
+velocity_x=cumsum(total$x_acc)
+velocity_y=cumsum(total$y_acc)
+velocity_z=cumsum(total$z_acc)
+velocity=data.frame(velocity_x,velocity_y,velocity_z)
+
+
+location_x=cumsum(velocity_x)
+location_y=cumsum(velocity_y)
+location_z=cumsum(velocity_z)
+location=data.frame(location_x,location_y,location_z)
+
+location6=location
+
+x_move=as.vector(x_acc[94,])
+z_move=as.vector(z_acc[94,])
+y_move=as.vector(y_acc[94,])
+
+
+total <- rbind(x_move,y_move,z_move)
+total=t(total)
+total=total[-1,]
+total=as.data.frame(total)
+names(total)=c('x_acc','y_acc','z_acc')
+
+velocity_x=cumsum(total$x_acc)
+velocity_y=cumsum(total$y_acc)
+velocity_z=cumsum(total$z_acc)
+velocity=data.frame(velocity_x,velocity_y,velocity_z)
+
+
+location_x=cumsum(velocity_x)
+location_y=cumsum(velocity_y)
+location_z=cumsum(velocity_z)
+location=data.frame(location_x,location_y,location_z)
+
+location3=location
+
+x_move=as.vector(x_acc[120,])
+z_move=as.vector(z_acc[120,])
+y_move=as.vector(y_acc[120,])
+
+
+total <- rbind(x_move,y_move,z_move)
+total=t(total)
+total=total[-1,]
+total=as.data.frame(total)
+names(total)=c('x_acc','y_acc','z_acc')
+
+velocity_x=cumsum(total$x_acc)
+velocity_y=cumsum(total$y_acc)
+velocity_z=cumsum(total$z_acc)
+velocity=data.frame(velocity_x,velocity_y,velocity_z)
+
+
+location_x=cumsum(velocity_x)
+location_y=cumsum(velocity_y)
+location_z=cumsum(velocity_z)
+location=data.frame(location_x,location_y,location_z)
+
+location4=location
+
+x_move=as.vector(x_acc[96,])
+z_move=as.vector(z_acc[96,])
+y_move=as.vector(y_acc[96,])
+
+
+total <- rbind(x_move,y_move,z_move)
+total=t(total)
+total=total[-1,]
+total=as.data.frame(total)
+names(total)=c('x_acc','y_acc','z_acc')
+
+velocity_x=cumsum(total$x_acc)
+velocity_y=cumsum(total$y_acc)
+velocity_z=cumsum(total$z_acc)
+velocity=data.frame(velocity_x,velocity_y,velocity_z)
+
+
+location_x=cumsum(velocity_x)
+location_y=cumsum(velocity_y)
+location_z=cumsum(velocity_z)
+location=data.frame(location_x,location_y,location_z)
+
+location5=location
+
+x_move=as.vector(x_acc[77,])
+z_move=as.vector(z_acc[77,])
+y_move=as.vector(y_acc[77,])
+
+
+total <- rbind(x_move,y_move,z_move)
+total=t(total)
+total=total[-1,]
+total=as.data.frame(total)
+names(total)=c('x_acc','y_acc','z_acc')
+
+velocity_x=cumsum(total$x_acc)
+velocity_y=cumsum(total$y_acc)
+velocity_z=cumsum(total$z_acc)
+velocity=data.frame(velocity_x,velocity_y,velocity_z)
+
+
+location_x=cumsum(velocity_x)
+location_y=cumsum(velocity_y)
+location_z=cumsum(velocity_z)
+location=data.frame(location_x,location_y,location_z)
+
+location1=location
+
+x_move=as.vector(x_acc[101,])
+z_move=as.vector(z_acc[101,])
+y_move=as.vector(y_acc[101,])
+
+
+total <- rbind(x_move,y_move,z_move)
+total=t(total)
+total=total[-1,]
+total=as.data.frame(total)
+names(total)=c('x_acc','y_acc','z_acc')
+
+velocity_x=cumsum(total$x_acc)
+velocity_y=cumsum(total$y_acc)
+velocity_z=cumsum(total$z_acc)
+velocity=data.frame(velocity_x,velocity_y,velocity_z)
+
+
+location_x=cumsum(velocity_x)
+location_y=cumsum(velocity_y)
+location_z=cumsum(velocity_z)
+location=data.frame(location_x,location_y,location_z)
+
+location2=location
+
+x_move=as.vector(x_acc[86,])
+z_move=as.vector(z_acc[86,])
+y_move=as.vector(y_acc[86,])
+
+
+total <- rbind(x_move,y_move,z_move)
+total=t(total)
+total=total[-1,]
+total=as.data.frame(total)
+names(total)=c('x_acc','y_acc','z_acc')
+
+velocity_x=cumsum(total$x_acc)
+velocity_y=cumsum(total$y_acc)
+velocity_z=cumsum(total$z_acc)
+velocity=data.frame(velocity_x,velocity_y,velocity_z)
+
+
+location_x=cumsum(velocity_x)
+location_y=cumsum(velocity_y)
+location_z=cumsum(velocity_z)
+location=data.frame(location_x,location_y,location_z)
+
+location7=location
+
+
+setnames(x_acc,'X1','class')
+x_acc$class=as.vector(x_acc$class)
+x_acc=as.data.table(x_acc)
+x_acc=x_acc[order(class)]
+x_acc[,class:=as.character(class)]
+x_acc[,id:=1:.N]
+long_x=melt(x_acc,id.vars=c('id','class'))
+
+
+long_x[,time:=as.numeric(gsub("\\D", "", variable))-1]
+
+long_x=long_x[,list(id,class,time,value)]
+long_x=long_x[order(id,time)]
+
+ggplot(long_x, aes(time,value)) + geom_line(aes(color=as.character(id)),) +
+  facet_wrap(~class)
+
+
+selected_series=1
+segment_length=10
+
+
+long_x=long_x[order(id,time)]
+
+data_ts=long_x[id==selected_series]$value
+paa_rep=repr_paa(data_ts, segment_length, meanC)
+plot(paa_rep,type='l')
+paa_rep
+
+data_plot=long_x[id==selected_series]
+dummy_time=c(1:(length(paa_rep)))*segment_length 
+dummy_time=c(dummy_time,nrow(data_plot))   
+
+
+
+
+
+
+
+
+dt_paa=data.table(time=dummy_time,paa_rep=paa_rep)
+head(dt_paa)
+
+data_plot=merge(data_plot,dt_paa,by='time',all.x=T)
+data_plot[,paa_rep:=nafill(paa_rep,'nocb')] 
+
+
+
+data_plot=melt(data_plot,id.vars='time',
+               measure.vars=c('value','paa_rep'))
+
+ggplot(data_plot,aes(x=time,y=value,color=variable))+
+  geom_line()
+
+data_plot=merge(data_plot,long_x[id==selected_series,list(time,obs=value)],by='time')
+
+head(data_plot)
+
+data_plot[,list(sse=sum((value-obs)^2)),list(variable)]
+
+data_plotpaa=data_plot
+
+paavecin=data_plotpaa[,data_plotpaa$variable=='paa_rep']
+paavector=data_plotpaa[paavecin]
+paavector$obs=NULL
+paavector
+
+
+
+selected_dt=long_x[id==selected_series]
+
+tree_fit=rpart(value~time,selected_dt,control=rpart.control(maxdepth=2))
+
+fancyRpartPlot(tree_fit)
+
+selected_dt[,tree_rep:=predict(tree_fit,selected_dt)]
+
+data_plot=melt(selected_dt,id.vars='time',measure.vars=c('value','tree_rep'))
+
+appended=rbind(data_plot,paavector)
+
+
+
+
+```
+
+## R Markdown
+
+
+
+```{r cars}
+x_acc <- read_table("D:/İndirilenler/uWaveGestureLibrary_X_TRAIN",col_names = FALSE)
+y_acc <- read_table("D:/İndirilenler/uWaveGestureLibrary_Y_TRAIN",col_names = FALSE)
+z_acc <- read_table("D:/İndirilenler/uWaveGestureLibrary_Z_TRAIN",col_names = FALSE)
+
+x_move=as.vector(x_acc[92,])
+z_move=as.vector(z_acc[92,])
+y_move=as.vector(y_acc[92,])
+
+total <- rbind(x_move,y_move,z_move)
+total=t(total)
+total=total[-1,]
+total=as.data.frame(total)
+names(total)=c('x_acc','y_acc','z_acc')
+
+
+
+
+acceleration=as.ts(total)
+
+
+
+
+velocity_x=cumsum(total$x_acc)
+velocity_y=cumsum(total$y_acc)
+velocity_z=cumsum(total$z_acc)
+
+velocity=data.frame(velocity_x,velocity_y,velocity_z)
+tsvelocity=as.ts(velocity)
+
+
+location_x=cumsum(velocity_x)
+location_y=cumsum(velocity_y)
+location_z=cumsum(velocity_z)
+location=data.frame(location_x,location_y,location_z)
+tslocation=as.ts(location)
+
+location8=location
+
+
+
+```
+
+
+## Including Plots
+
+
+
+```{r pressure, echo=FALSE}
+
+scatterplot3d(location1,type = "h",main="Instance from Class 1")
+scatterplot3d(location2,type = "h",main="Instance from Class 2")
+scatterplot3d(location3,type = "h",main="Instance from Class 3")
+scatterplot3d(location4,type = "h",main="Instance from Class 4")
+scatterplot3d(location5,type = "h",main="Instance from Class 5")
+scatterplot3d(location6,type = "h",main="Instance from Class 6")
+scatterplot3d(location7,type = "h",main="Instance from Class 7")
+scatterplot3d(location8,type = "h",main="Instance from Class 8")
+
+```
+
+## R Markdown
+
+As different classes show significant differences in their rotating axis (clockwise-counter clockwise), number of times origin axises are visited and distance from their starting point using tree approach is useful for most of the instances as it keeps the most of their "concentrated" data. The second approach for representation is "Piecewise Aggregate Approximation". It is not as concentrated as tree approach yet it uses only 10% of the data with loss of 10.08 sse point. 
+
+```{r represent, echo=FALSE}
+
+
+ggplot(appended,aes(x=time,y=value,color=variable))+
+  geom_line()+ggtitle("Plot of Piecewise Aggregate Approximation Approach and Tree Approach")
+
+
+```
