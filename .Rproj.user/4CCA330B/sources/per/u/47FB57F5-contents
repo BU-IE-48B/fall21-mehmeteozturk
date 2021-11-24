@@ -1,0 +1,127 @@
+install.packages("data.table")
+install.packages("ggplot2")
+install.packages("repr")
+install.packages("rpart")
+install.packages("rattle")
+install.packages("TSrepr")
+install.packages("zoo")
+install.packages("dtw")
+install.packages("reshape")
+install.packages("genlasso")
+install.packages("rlang")
+install.packages("data.table")
+install.packages("tree")
+library(tree)
+library(genlasso)
+require(dtw)
+require(data.table)
+require(ggplot2)
+require(repr)
+require(rpart)
+require(rattle)
+require(TSrepr)
+require(zoo)
+require(reshape)
+require(rlang)
+library(data.table)
+library(dplyr)
+
+current_folder=getwd()
+dataset='CBF'
+
+train_data_path=sprintf('%s/ClassificationData/%s/%s_TRAIN.txt',current_folder,dataset,dataset)
+
+#traindata=as.matrix(fread(train_data_path))
+traindata=fread(train_data_path)
+
+head(traindata)
+
+#first column is the class variable
+trainclass=traindata[,1] # takes -1 and 1
+#drop first column
+traindata=traindata[,2:ncol(traindata)]
+print(dim(traindata)) #shows that there 100 series (rows) of length 96 time units (columns)
+
+tlength=ncol(traindata)
+noftimeseries=nrow(traindata)
+
+
+
+
+
+traindata[,id:=1:.N]
+traindatalong=melt(traindata,id.vars='id')
+traindatalong[,time:=as.numeric(gsub("\\D", "", variable))-1]
+traindatalong=traindatalong[,list(id,time,value)]
+traindatalong=traindatalong[order(id,time)]
+
+series_id=unique(traindatalong$id)
+
+
+lambdafunc=function(X){
+  X=X$value
+  X=as.matrix(X)
+  a=trendfilter(X,ord = 0)
+  b=cv.trendfilter(a,k=10,mode = "lambda")
+  return(b$lambda.min)
+}
+lambdas=lapply(series_id,function(x) lambdafunc(traindatalong[id==x]))
+
+lambdas=as.data.table(lambdas)
+
+
+
+
+
+
+out=trendfilter(traindatamatrix[1,],ord=0)
+
+
+
+plot(out,lambda = 0.74)
+
+cv=cv.trendfilter(out,k=10,mode="lambda")
+
+
+fl1d=fusedlasso1d(traindatamatrix[1,],)
+cv=cv.trendfilter(fl1d,k=10,mode = "lambda")
+traindatamatrix=as.matrix(traindatamatrix)
+lambmin=cv$lambda.min
+col1=traindatamatrix[1,]
+predgenlas=predict.genlasso(fl1d,lambda = lambmin)
+plot(predgenlas$fit,type = "l")
+points(traindatamatrix[1,],type = "l",col=2)
+plot(traindatamatrix[1,],type = "l",col=2)
+points(predgenlas$fit,type = "l")
+genlas1d_values=as.data.table(predgenlas$fit)
+
+
+genlas1d_values[,time:=1:128]
+
+
+traindata=fread(train_data_path)
+traindata=as.matrix(traindata)
+trainclass=traindata[,1] # takes -1 and 1
+#drop first column
+traindata=traindata[,2:ncol(traindata)]
+plot(traindata[1,])
+plot(traindata[1,],type='l')
+ts1=traindata[1,]
+
+selected_series=1
+selected_dt=traindatalong[id==selected_series]
+
+tree_fit=rpart(value~time,selected_dt,control=rpart.control(minsplit=20,minbucket=10,cp=0))
+fancyRpartPlot(tree_fit)
+selected_dt[,tree_rep:=predict(tree_fit,selected_dt)]
+selected_dt[,genlasso1d:=genlas1d_values]
+data_plot=melt(selected_dt,id.vars='time',measure.vars=c('value','tree_rep','genlasso1d'))
+
+
+ggplot(data_plot,aes(x=time,y=value,color=variable))+
+  geom_line()
+
+treemodel=rpart(ts1)
+
+
+

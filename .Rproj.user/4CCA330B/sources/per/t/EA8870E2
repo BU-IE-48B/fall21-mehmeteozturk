@@ -1,0 +1,28 @@
+{
+    "id": "EA8870E2",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1637606718006.0,
+    "source_on_save": false,
+    "relative_order": 20,
+    "properties": {
+        "id": "8ed382c5120c4d478a6f3f682d009767",
+        "name": "predgenlas",
+        "title": "predgenlas",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 2308706344425960757,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1637606718006,
+    "read_only": false,
+    "read_only_alternatives": []
+}

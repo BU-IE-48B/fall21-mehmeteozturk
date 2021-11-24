@@ -1,0 +1,28 @@
+{
+    "id": "038805BA",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1637584535032.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "id": "0b6ee5c27942405f94902147eb15d9fa",
+        "name": "cv",
+        "title": "cv",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 7810123700365321520,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1637584535032,
+    "read_only": false,
+    "read_only_alternatives": []
+}
