@@ -12,3 +12,7 @@
 [Homework 2.html](ie48bhw2fin.html)
 
 
+[Homework 3.ipynb](Untitled1.ipynb)
+[Homework 3.html](Untitled1.html)
+
+
