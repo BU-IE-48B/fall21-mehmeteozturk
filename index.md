@@ -15,4 +15,8 @@
 [Homework 3.ipynb](Untitled1.ipynb)
 [Homework 3.html](Untitled1.html)
 
+[Project.pdf](IE48B_Report.pdf)
+[Project.r](project.R)
+
+
 
